@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-
+let count = 0;
 
 class App extends Component {
 
@@ -46,6 +46,10 @@ class App extends Component {
     }
   }
 
+  handleCompleteClick = e => {
+
+  }
+
   
   render() {
     const {todos, newTodoBody} = this.state
@@ -71,8 +75,39 @@ class App extends Component {
       <ul> 
         {
          todos.map(todo => (
-            <li className={ todo.complete ? 'complete' : ""} key={todo.id}>{todo.body}</li>
-          ))
+           <li className={ todo.complete ? 'complete' : ""} key={todo.id}> {todo.body} 
+              
+              
+              <button onClick={ (e) => {
+                 this.setState({
+                     todos : todos.map( t => {
+                         const newTodo = {
+                             ...t 
+                           }
+                           if (t.id === todo.id) {
+                               newTodo.complete = true;
+                             }
+                             return newTodo
+                           })             
+                         }) 
+                       }
+                     } > complete </button>
+
+            
+            
+            <button onClick = { e => {
+              this.setState({
+                todos : todos.filter( t => {
+                 return  t.id !== todo.id
+                  }
+                )
+              })
+              
+              
+             }} > delete </button>
+             
+             
+             </li>))
         }
       </ul>
            
